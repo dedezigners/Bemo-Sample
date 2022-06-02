@@ -61,14 +61,17 @@ export default {
       // }).catch(err => console.log(err.response.data));
     },
     createCard(id, title) {
-      console.log(id);
-      console.log(title);
+      let column = this.columns.find(c => c.id === id);
 
-      let column = this.columns.find(i => i.id === id);
-      column.cards.push({
-        id: null,
-        title: title,
-      });
+      if (column) {
+        axios.post(`card`, {
+          column_id: id,
+          title: title,
+          position: column.cards.length > 0 ? column.cards[column.cards.length - 1].id : 0,
+        }).then(res => {
+          column.cards.push(res.data.data);
+        }).catch(err => console.log(err.response.data));
+      }
     }
   }
 };

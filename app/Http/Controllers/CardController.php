@@ -3,30 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Card;
+use App\Models\Column;
 use Illuminate\Http\Request;
+use App\Http\Resources\CardResource;
 
 class CardController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -35,29 +17,9 @@ class CardController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Card  $card
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Card $card)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Card  $card
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Card $card)
-    {
-        //
+        // return response()->json($request->all());
+        $card = Card::create($request->all());
+        return new CardResource($card);
     }
 
     /**

@@ -2144,15 +2144,21 @@ __webpack_require__.r(__webpack_exports__);
       // }).catch(err => console.log(err.response.data));
     },
     createCard: function createCard(id, title) {
-      console.log(id);
-      console.log(title);
-      var column = this.columns.find(function (i) {
-        return i.id === id;
+      var column = this.columns.find(function (c) {
+        return c.id === id;
       });
-      column.cards.push({
-        id: null,
-        title: title
-      });
+
+      if (column) {
+        axios.post("card", {
+          column_id: id,
+          title: title,
+          position: column.cards.length > 0 ? column.cards[column.cards.length - 1].id : 0
+        }).then(function (res) {
+          column.cards.push(res.data.data);
+        })["catch"](function (err) {
+          return console.log(err.response.data);
+        });
+      }
     }
   }
 });
