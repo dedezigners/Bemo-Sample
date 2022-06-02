@@ -36,4 +36,22 @@
             background-color: rgba($color: $primary-color, $alpha: 0.85);
         }
     }
+
+    &-secondary {
+        background-color: $dark-gray;
+        color: $white-color;
+
+        &:hover {
+            background-color: rgba($color: $dark-gray, $alpha: 0.85);
+        }
+    }
+
+    &-add-card {
+        width: 100%;
+
+        .text {
+            align-self: center;
+            margin-left: 15px;
+        }
+    }
 }

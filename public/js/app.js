@@ -2080,6 +2080,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "App",
   components: {
@@ -2088,23 +2092,44 @@ __webpack_require__.r(__webpack_exports__);
     },
     AddColumn: function AddColumn() {
       return __webpack_require__.e(/*! import() */ "resources_js_componenets_AddColumn_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./AddColumn.vue */ "./resources/js/componenets/AddColumn.vue"));
+    },
+    CardModal: function CardModal() {
+      return __webpack_require__.e(/*! import() */ "resources_js_componenets_CardModal_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./CardModal.vue */ "./resources/js/componenets/CardModal.vue"));
     }
   },
   data: function data() {
     return {
       columns: [{
-        name: 'Test'
+        id: 1,
+        name: 'Test',
+        cards: []
       }, {
-        name: 'Column Name'
+        id: 2,
+        name: 'Column Name',
+        cards: []
       }, {
-        name: 'Column Three'
-      }]
+        id: 3,
+        name: 'Column Three',
+        cards: []
+      }],
+      showModal: false
     };
   },
   methods: {
     createColumn: function createColumn(columnName) {
       this.columns.push({
         name: columnName
+      });
+    },
+    createCard: function createCard(id, title) {
+      console.log(id);
+      console.log(title);
+      var column = this.columns.find(function (i) {
+        return i.id === id;
+      });
+      column.cards.push({
+        id: null,
+        title: title
       });
     }
   }
@@ -19690,22 +19715,33 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "main" }, [
-    _c("header", [_vm._v("BeMo Sample Task")]),
-    _vm._v(" "),
-    _c(
-      "div",
-      { staticClass: "board-section" },
-      [
-        _vm._l(_vm.columns, function (column, i) {
-          return _c("column", { key: i, attrs: { name: column.name } })
-        }),
-        _vm._v(" "),
-        _c("add-column", { on: { "create-column": _vm.createColumn } }),
-      ],
-      2
-    ),
-  ])
+  return _c(
+    "div",
+    { staticClass: "main" },
+    [
+      _c("header", [_vm._v("BeMo Sample Task")]),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "board-section" },
+        [
+          _vm._l(_vm.columns, function (column, i) {
+            return _c("column", {
+              key: i,
+              attrs: { id: column.id, name: column.name, cards: column.cards },
+              on: { "create-card": _vm.createCard },
+            })
+          }),
+          _vm._v(" "),
+          _c("add-column", { on: { "create-column": _vm.createColumn } }),
+        ],
+        2
+      ),
+      _vm._v(" "),
+      _vm.showModal ? _c("card-modal") : _vm._e(),
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -31989,7 +32025,7 @@ module.exports = JSON.parse('{"_from":"axios@^0.21","_id":"axios@0.21.4","_inBun
 /******/ 		// This function allow to reference async chunks
 /******/ 		__webpack_require__.u = (chunkId) => {
 /******/ 			// return url for filenames not based on template
-/******/ 			if ({"resources_js_componenets_Column_vue":1,"resources_js_componenets_AddColumn_vue":1,"resources_js_componenets_CardModal_vue":1}[chunkId]) return "js/" + chunkId + ".js";
+/******/ 			if ({"resources_js_componenets_Column_vue":1,"resources_js_componenets_AddColumn_vue":1,"resources_js_componenets_CardModal_vue":1,"resources_js_componenets_Card_vue":1}[chunkId]) return "js/" + chunkId + ".js";
 /******/ 			// return url for filenames based on template
 /******/ 			return undefined;
 /******/ 		};

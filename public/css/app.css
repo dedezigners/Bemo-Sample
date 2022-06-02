@@ -72,6 +72,7 @@ body .board-section {
   align-content: space-between;
   align-items: center;
   border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+  margin-bottom: 15px;
 }
 .col-content__header .icon {
   margin-left: 10px;
@@ -100,6 +101,25 @@ input:read-only {
   cursor: pointer;
 }
 input:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+textarea {
+  width: 100%;
+  background-color: #ffffff;
+  display: block;
+  font-size: 14px;
+  font-weight: 400;
+  height: 75px;
+  border: 1px solid rgba(152, 152, 152, 0.45);
+  color: #000000;
+  border-radius: 0.25rem;
+  padding: 0.225rem 0.5rem;
+  margin-bottom: 0.5rem;
+  resize: none;
+}
+textarea:focus {
   outline: none;
   box-shadow: none;
 }
@@ -137,4 +157,18 @@ input:focus {
 }
 .btn-primary:hover {
   background-color: rgba(33, 39, 112, 0.85);
+}
+.btn-secondary {
+  background-color: #989898;
+  color: #ffffff;
+}
+.btn-secondary:hover {
+  background-color: rgba(152, 152, 152, 0.85);
+}
+.btn-add-card {
+  width: 100%;
+}
+.btn-add-card .text {
+  align-self: center;
+  margin-left: 15px;
 }

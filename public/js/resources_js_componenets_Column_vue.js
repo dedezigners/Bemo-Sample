@@ -26,17 +26,53 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "Column",
   props: {
+    id: {
+      type: Number,
+      required: true
+    },
     name: {
       type: String,
       required: true
+    },
+    cards: {
+      type: Array,
+      "default": []
     }
   },
   components: {
-    CardModal: function CardModal() {
-      return __webpack_require__.e(/*! import() */ "resources_js_componenets_CardModal_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./CardModal.vue */ "./resources/js/componenets/CardModal.vue"));
+    Card: function Card() {
+      return __webpack_require__.e(/*! import() */ "resources_js_componenets_Card_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./Card.vue */ "./resources/js/componenets/Card.vue"));
     }
   },
   created: function created() {
@@ -45,21 +81,26 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       canEdit: true,
-      updatedName: ''
+      updatedName: "",
+      addCard: false,
+      cardTitle: ""
     };
   },
   methods: {
     updateName: function updateName() {
       if (this.updatedName) {
-        this.$emit('update-column-name', this.updatedName);
+        this.$emit("update-column-name", this.updatedName);
       } else {
         this.updatedName = this.name;
       }
 
       this.canEdit = true;
     },
-    showModal: function showModal() {
-      this.$modal.show('modal');
+    createCard: function createCard() {
+      if (this.cardTitle) {
+        this.$emit('create-card', this.id, this.cardTitle);
+        this.cardTitle = '';
+      }
     }
   }
 });
@@ -194,15 +235,91 @@ var render = function () {
           ]),
         ]),
         _vm._v(" "),
-        _c("modal", { attrs: { name: "modal" } }, [
-          _vm._v(" This is my first modal "),
-        ]),
+        _vm._l(_vm.cards, function (card, i) {
+          return _c("card", {
+            key: i,
+            attrs: { id: card.id, title: card.title, desc: card.desc },
+          })
+        }),
         _vm._v(" "),
-        _c("button", { staticClass: "btn", on: { click: _vm.showModal } }, [
-          _vm._v("Create Card"),
-        ]),
+        !_vm.addCard
+          ? _c(
+              "button",
+              {
+                staticClass: "btn btn-add-card",
+                on: {
+                  click: function ($event) {
+                    _vm.addCard = true
+                  },
+                },
+              },
+              [
+                _c("span", { staticClass: "material-symbols-outlined icon" }, [
+                  _vm._v(" add "),
+                ]),
+                _vm._v(" "),
+                _c("span", { staticClass: "text" }, [_vm._v(" Add a card ")]),
+              ]
+            )
+          : _c("div", { staticClass: "add-card" }, [
+              _c("textarea", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.cardTitle,
+                    expression: "cardTitle",
+                  },
+                ],
+                attrs: { placeholder: "Enter a title of this card..." },
+                domProps: { value: _vm.cardTitle },
+                on: {
+                  keypress: function ($event) {
+                    if (
+                      !$event.type.indexOf("key") &&
+                      _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
+                    ) {
+                      return null
+                    }
+                    return _vm.createCard.apply(null, arguments)
+                  },
+                  input: function ($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.cardTitle = $event.target.value
+                  },
+                },
+              }),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-secondary",
+                  on: { click: _vm.createCard },
+                },
+                [_vm._v("\n        Add Card\n      ")]
+              ),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-icon",
+                  on: {
+                    click: function ($event) {
+                      _vm.addCard = false
+                    },
+                  },
+                },
+                [
+                  _c("span", { staticClass: "material-symbols-outlined" }, [
+                    _vm._v(" close "),
+                  ]),
+                ]
+              ),
+            ]),
       ],
-      1
+      2
     ),
   ])
 }
