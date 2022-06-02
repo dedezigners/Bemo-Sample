@@ -17,6 +17,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "card",
   props: {
@@ -31,6 +42,45 @@ __webpack_require__.r(__webpack_exports__);
     desc: {
       type: String,
       "default": ""
+    }
+  },
+  computed: {
+    modalName: function modalName() {
+      return this.title.toLowerCase() + "-" + this.id;
+    }
+  },
+  mounted: function mounted() {
+    this.editTitle = this.title;
+    this.editDescription = this.desc;
+  },
+  data: function data() {
+    return {
+      editTitle: "",
+      editDescription: ""
+    };
+  },
+  methods: {
+    show: function show() {
+      this.$modal.show(this.modalName);
+    },
+    hide: function hide() {
+      this.editDescription = "";
+      this.$modal.hide(this.modalName);
+    },
+    save: function save() {
+      var _this = this;
+
+      axios.put("card/".concat(this.id), {
+        title: this.editTitle,
+        desc: this.editDescription
+      }).then(function (res) {
+        var data = res.data.data;
+        EventBus.$emit("update-card", data.id, data);
+
+        _this.hide();
+      })["catch"](function (err) {
+        return console.log(err.response.data);
+      });
     }
   }
 });
@@ -53,7 +103,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".card[data-v-c860c0e0] {\n  padding: 10px;\n  border-radius: 0.5rem;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".card[data-v-c860c0e0] {\n  padding: 0.25rem 0.5rem;\n  border-radius: 0.25rem;\n  background: #ffffff;\n  margin-bottom: 10px;\n  cursor: pointer;\n}\n.card .modal-content[data-v-c860c0e0] {\n  padding: 20px;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -540,9 +590,76 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "card" }, [
-    _c("h5", { domProps: { textContent: _vm._s(_vm.title) } }),
-  ])
+  return _c(
+    "div",
+    { staticClass: "card", on: { click: _vm.show } },
+    [
+      _c("h5", { domProps: { textContent: _vm._s(_vm.title) } }),
+      _vm._v(" "),
+      _c(
+        "modal",
+        {
+          staticClass: "modal",
+          attrs: { name: _vm.modalName, clickToClose: false },
+        },
+        [
+          _c("div", { staticClass: "modal-content" }, [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.editTitle,
+                  expression: "editTitle",
+                },
+              ],
+              attrs: { type: "text" },
+              domProps: { value: _vm.editTitle },
+              on: {
+                input: function ($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.editTitle = $event.target.value
+                },
+              },
+            }),
+            _vm._v(" "),
+            _c("textarea", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.editDescription,
+                  expression: "editDescription",
+                },
+              ],
+              domProps: { value: _vm.editDescription },
+              on: {
+                input: function ($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.editDescription = $event.target.value
+                },
+              },
+            }),
+            _vm._v(" "),
+            _c("button", { staticClass: "btn", on: { click: _vm.save } }, [
+              _vm._v("Save"),
+            ]),
+            _vm._v(" "),
+            _c("button", { staticClass: "btn", on: { click: _vm.hide } }, [
+              _vm._v("Close"),
+            ]),
+            _vm._v(" "),
+            _c("button", { staticClass: "btn" }, [_vm._v("Delete Card")]),
+          ]),
+        ]
+      ),
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true

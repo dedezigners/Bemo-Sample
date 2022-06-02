@@ -31,7 +31,10 @@ class CardController extends Controller
      */
     public function update(Request $request, Card $card)
     {
-        //
+        // return response()->json($request->all());
+        $card->update($request->all());
+        return new CardResource($card);
+
     }
 
     /**

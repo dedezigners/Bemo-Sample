@@ -2084,8 +2084,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "App",
   components: {
@@ -2094,44 +2092,69 @@ __webpack_require__.r(__webpack_exports__);
     },
     AddColumn: function AddColumn() {
       return __webpack_require__.e(/*! import() */ "resources_js_componenets_AddColumn_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./AddColumn.vue */ "./resources/js/componenets/AddColumn.vue"));
-    },
-    CardModal: function CardModal() {
-      return __webpack_require__.e(/*! import() */ "resources_js_componenets_CardModal_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./CardModal.vue */ "./resources/js/componenets/CardModal.vue"));
     }
   },
   data: function data() {
     return {
-      columns: [],
-      showModal: false
+      columns: []
     };
   },
   mounted: function mounted() {
+    this.getEvents();
     this.getData();
   },
   methods: {
-    getData: function getData() {
+    getEvents: function getEvents() {
       var _this = this;
 
+      EventBus.$on('update-card', function (cardId, data) {
+        var columnId = null;
+
+        _this.columns.forEach(function (col) {
+          col.cards.forEach(function (card) {
+            if (card.id === cardId) {
+              columnId = col.id;
+              return true;
+            }
+          });
+          if (columnId) return true;
+        });
+
+        var columnIndex = _this.columns.findIndex(function (col) {
+          return col.id === columnId;
+        });
+
+        var cardIndex = _this.columns[columnIndex].cards.findIndex(function (c) {
+          return c.id === cardId;
+        });
+
+        _this.columns[columnIndex].cards[cardIndex] = data;
+        console.log(_this.columns[columnIndex].cards[cardIndex]);
+      });
+    },
+    getData: function getData() {
+      var _this2 = this;
+
       axios.get("column").then(function (res) {
-        _this.columns = res.data.data;
+        _this2.columns = res.data.data;
       })["catch"](function (err) {
         return console.log(err.response.data);
       });
     },
     createColumn: function createColumn(name) {
-      var _this2 = this;
+      var _this3 = this;
 
       axios.post("column", {
-        'name': name
+        name: name
       }).then(function (res) {
-        _this2.columns.push(res.data.data);
+        _this3.columns.push(res.data.data);
       })["catch"](function (err) {
         return console.log(err.response.data);
       });
     },
     updateColumn: function updateColumn(id, name) {
       axios.put("column/".concat(id), {
-        'name': name
+        name: name
       }).then(function (res) {
         console.log(res.data.data);
       })["catch"](function (err) {
@@ -2184,6 +2207,7 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 vue__WEBPACK_IMPORTED_MODULE_2__["default"].use((vue_js_modal__WEBPACK_IMPORTED_MODULE_1___default()));
+window.EventBus = new vue__WEBPACK_IMPORTED_MODULE_2__["default"]();
 new vue__WEBPACK_IMPORTED_MODULE_2__["default"]({
   el: '#app',
   template: '<app/>',
@@ -19746,37 +19770,30 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "main" },
-    [
-      _c("header", [_vm._v("BeMo Sample Task")]),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "board-section" },
-        [
-          _vm._l(_vm.columns, function (column, i) {
-            return _c("column", {
-              key: i,
-              attrs: { id: column.id, name: column.name, cards: column.cards },
-              on: {
-                "create-card": _vm.createCard,
-                "update-column-name": _vm.updateColumn,
-                "delete-column": _vm.deleteColumn,
-              },
-            })
-          }),
-          _vm._v(" "),
-          _c("add-column", { on: { "create-column": _vm.createColumn } }),
-        ],
-        2
-      ),
-      _vm._v(" "),
-      _vm.showModal ? _c("card-modal") : _vm._e(),
-    ],
-    1
-  )
+  return _c("div", { staticClass: "main" }, [
+    _c("header", [_vm._v("BeMo Sample Task")]),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "board-section" },
+      [
+        _vm._l(_vm.columns, function (column, i) {
+          return _c("column", {
+            key: i,
+            attrs: { id: column.id, name: column.name, cards: column.cards },
+            on: {
+              "create-card": _vm.createCard,
+              "update-column-name": _vm.updateColumn,
+              "delete-column": _vm.deleteColumn,
+            },
+          })
+        }),
+        _vm._v(" "),
+        _c("add-column", { on: { "create-column": _vm.createColumn } }),
+      ],
+      2
+    ),
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -32060,7 +32077,7 @@ module.exports = JSON.parse('{"_from":"axios@^0.21","_id":"axios@0.21.4","_inBun
 /******/ 		// This function allow to reference async chunks
 /******/ 		__webpack_require__.u = (chunkId) => {
 /******/ 			// return url for filenames not based on template
-/******/ 			if ({"resources_js_componenets_Column_vue":1,"resources_js_componenets_AddColumn_vue":1,"resources_js_componenets_CardModal_vue":1,"resources_js_componenets_Card_vue":1}[chunkId]) return "js/" + chunkId + ".js";
+/******/ 			if ({"resources_js_componenets_Column_vue":1,"resources_js_componenets_AddColumn_vue":1,"resources_js_componenets_Card_vue":1}[chunkId]) return "js/" + chunkId + ".js";
 /******/ 			// return url for filenames based on template
 /******/ 			return undefined;
 /******/ 		};

@@ -15,25 +15,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "CardModal",
-  data: function data() {
-    return {
-      name: 'new-card'
-    };
-  },
-  mounted: function mounted() {
-    this.show();
-  },
   methods: {
     show: function show() {
-      this.$modal.show(this.name);
+      this.$modal.show("my-first-modal");
     },
     hide: function hide() {
-      this.$modal.hide(this.name);
+      this.$modal.hide("my-first-modal");
     }
+  },
+  mount: function mount() {
+    this.show();
   }
 });
 
@@ -123,7 +116,9 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("modal", { attrs: { name: _vm.name, clickToClose: false } })
+  return _c("modal", { attrs: { name: "my-first-modal" } }, [
+    _vm._v(" This is my first modal "),
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true

@@ -63,7 +63,7 @@ export default {
   components: {
     Card: () => import("./Card.vue"),
   },
-  created() {
+  mounted() {
     this.updatedName = this.name;
   },
   data: () => ({
@@ -86,7 +86,7 @@ export default {
         this.$emit('create-card', this.id, this.cardTitle);
         this.cardTitle = '';
       }
-    }
+    },
   },
 };
 </script>
