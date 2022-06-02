@@ -23,7 +23,8 @@ export default {
   data: () => ({
     columns: [
       { name: 'Test' },
-      { name: 'Column Name' }
+      { name: 'Column Name' },
+      { name: 'Column Three' },
     ],
   }),
   methods: {

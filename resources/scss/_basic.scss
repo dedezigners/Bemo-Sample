@@ -11,6 +11,8 @@ body {
     font-family: $font-family;
     min-height: 100vh;
     min-width: 100vw;
+    overflow-y: hidden;
+    overflow-x: auto;
 
     header {
         width: 100%;
@@ -22,11 +24,22 @@ body {
         display: flex;
         align-items: center;
         justify-content: center;
+        position: fixed;
     }
 
     .board-section {
-        padding: 0.8rem;
-        display: flex;
-        align-items: flex-start;
+        bottom: 0;
+        left: 0;
+        padding-top: 5rem;
+        margin-bottom: 8px;
+        overflow-x: auto;
+        overflow-y: hidden;
+        padding-bottom: 8px;
+        position: absolute;
+        right: 0;
+        top: 0;
+        -webkit-user-select: none;
+        user-select: none;
+        white-space: nowrap;
     }
 }

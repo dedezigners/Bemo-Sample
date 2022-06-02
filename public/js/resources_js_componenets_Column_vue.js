@@ -20,12 +20,23 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "Column",
   props: {
     name: {
       type: String,
       required: true
+    }
+  },
+  components: {
+    CardModal: function CardModal() {
+      return __webpack_require__.e(/*! import() */ "resources_js_componenets_CardModal_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./CardModal.vue */ "./resources/js/componenets/CardModal.vue"));
     }
   },
   created: function created() {
@@ -46,6 +57,9 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       this.canEdit = true;
+    },
+    showModal: function showModal() {
+      this.$modal.show('modal');
     }
   }
 });
@@ -136,45 +150,60 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "column" }, [
-    _c("div", { staticClass: "column-header" }, [
-      _c("input", {
-        directives: [
-          {
-            name: "model",
-            rawName: "v-model",
-            value: _vm.updatedName,
-            expression: "updatedName",
-          },
-        ],
-        attrs: { type: "text", readonly: _vm.canEdit },
-        domProps: { value: _vm.updatedName },
-        on: {
-          keypress: function ($event) {
-            if (
-              !$event.type.indexOf("key") &&
-              _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
-            ) {
-              return null
-            }
-            return _vm.updateName.apply(null, arguments)
-          },
-          click: function ($event) {
-            _vm.canEdit = false
-          },
-          input: function ($event) {
-            if ($event.target.composing) {
-              return
-            }
-            _vm.updatedName = $event.target.value
-          },
-        },
-      }),
-      _vm._v(" "),
-      _c("span", { staticClass: "material-symbols-outlined icon" }, [
-        _vm._v("close"),
-      ]),
-    ]),
+  return _c("div", { staticClass: "col" }, [
+    _c(
+      "div",
+      { staticClass: "col-content" },
+      [
+        _c("div", { staticClass: "col-content__header" }, [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.updatedName,
+                expression: "updatedName",
+              },
+            ],
+            attrs: { type: "text", readonly: _vm.canEdit },
+            domProps: { value: _vm.updatedName },
+            on: {
+              keypress: function ($event) {
+                if (
+                  !$event.type.indexOf("key") &&
+                  _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
+                ) {
+                  return null
+                }
+                return _vm.updateName.apply(null, arguments)
+              },
+              click: function ($event) {
+                _vm.canEdit = false
+              },
+              input: function ($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.updatedName = $event.target.value
+              },
+            },
+          }),
+          _vm._v(" "),
+          _c("span", { staticClass: "material-symbols-outlined icon" }, [
+            _vm._v("close"),
+          ]),
+        ]),
+        _vm._v(" "),
+        _c("modal", { attrs: { name: "modal" } }, [
+          _vm._v(" This is my first modal "),
+        ]),
+        _vm._v(" "),
+        _c("button", { staticClass: "btn", on: { click: _vm.showModal } }, [
+          _vm._v("Create Card"),
+        ]),
+      ],
+      1
+    ),
   ])
 }
 var staticRenderFns = []

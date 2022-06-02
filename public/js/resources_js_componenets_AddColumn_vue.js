@@ -25,6 +25,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "AddColumn",
   data: function data() {
@@ -36,8 +50,8 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     createColumn: function createColumn() {
       if (this.columnName) {
-        this.$emit('create-column', this.columnName);
-        this.columnName = '';
+        this.$emit("create-column", this.columnName);
+        this.columnName = "";
         this.addColumn = false;
       }
     }
@@ -62,7 +76,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".btn-add_card[data-v-0f69bcf2] {\n  width: 300px;\n  display: flex;\n  align-items: center;\n  justify-content: flex-start;\n}\n.btn-add_card span[data-v-0f69bcf2] {\n  margin-right: 1rem;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".btn-add_card[data-v-0f69bcf2] {\n  width: 100%;\n  height: 100%;\n  vertical-align: top;\n  white-space: nowrap;\n  background-color: rgba(255, 255, 255, 0.35);\n  border-radius: 0.25rem;\n  border: 1px solid rgba(152, 152, 152, 0.35);\n}\n.btn-add_card span[data-v-0f69bcf2] {\n  margin-right: 1rem;\n}\n.btn-add_card[data-v-0f69bcf2]:hover {\n  background-color: rgba(152, 152, 152, 0.35);\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -549,78 +563,85 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return !_vm.addColumn
-    ? _c(
-        "button",
-        {
-          staticClass: "btn btn-add_card",
-          on: {
-            click: function ($event) {
-              _vm.addColumn = true
-            },
-          },
-        },
-        [
-          _c("span", { staticClass: "material-symbols-outlined" }, [
-            _vm._v(" add "),
-          ]),
-          _vm._v("\n  Add Column\n"),
-        ]
-      )
-    : _c("div", { staticClass: "column column-add" }, [
-        _c("input", {
-          directives: [
+  return _c("div", { staticClass: "col col-add" }, [
+    _c("div", { staticClass: "col-content" }, [
+      !_vm.addColumn
+        ? _c(
+            "button",
             {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.columnName,
-              expression: "columnName",
-            },
-          ],
-          attrs: { type: "text" },
-          domProps: { value: _vm.columnName },
-          on: {
-            keypress: function ($event) {
-              if (
-                !$event.type.indexOf("key") &&
-                _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
-              ) {
-                return null
-              }
-              return _vm.createColumn.apply(null, arguments)
-            },
-            input: function ($event) {
-              if ($event.target.composing) {
-                return
-              }
-              _vm.columnName = $event.target.value
-            },
-          },
-        }),
-        _vm._v(" "),
-        _c(
-          "button",
-          { staticClass: "btn btn-primary", on: { click: _vm.createColumn } },
-          [_vm._v("Add Column")]
-        ),
-        _vm._v(" "),
-        _c(
-          "button",
-          {
-            staticClass: "btn btn-icon",
-            on: {
-              click: function ($event) {
-                _vm.addColumn = false
+              staticClass: "btn btn-add_card",
+              on: {
+                click: function ($event) {
+                  _vm.addColumn = true
+                },
               },
             },
-          },
-          [
-            _c("span", { staticClass: "material-symbols-outlined" }, [
-              _vm._v(" close "),
-            ]),
-          ]
-        ),
-      ])
+            [
+              _c("span", { staticClass: "material-symbols-outlined" }, [
+                _vm._v(" add "),
+              ]),
+              _vm._v("\n      Add Column\n    "),
+            ]
+          )
+        : _c("div", { staticClass: "column column-add" }, [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.columnName,
+                  expression: "columnName",
+                },
+              ],
+              attrs: { type: "text" },
+              domProps: { value: _vm.columnName },
+              on: {
+                keypress: function ($event) {
+                  if (
+                    !$event.type.indexOf("key") &&
+                    _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
+                  ) {
+                    return null
+                  }
+                  return _vm.createColumn.apply(null, arguments)
+                },
+                input: function ($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.columnName = $event.target.value
+                },
+              },
+            }),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-primary",
+                on: { click: _vm.createColumn },
+              },
+              [_vm._v("\n        Add Column\n      ")]
+            ),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-icon",
+                on: {
+                  click: function ($event) {
+                    _vm.addColumn = false
+                  },
+                },
+              },
+              [
+                _c("span", { staticClass: "material-symbols-outlined" }, [
+                  _vm._v(" close "),
+                ]),
+              ]
+            ),
+          ]),
+    ]),
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
