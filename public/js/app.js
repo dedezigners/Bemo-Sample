@@ -2084,6 +2084,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "App",
   components: {
@@ -2099,27 +2101,47 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      columns: [{
-        id: 1,
-        name: 'Test',
-        cards: []
-      }, {
-        id: 2,
-        name: 'Column Name',
-        cards: []
-      }, {
-        id: 3,
-        name: 'Column Three',
-        cards: []
-      }],
+      columns: [],
       showModal: false
     };
   },
+  mounted: function mounted() {
+    this.getData();
+  },
   methods: {
-    createColumn: function createColumn(columnName) {
-      this.columns.push({
-        name: columnName
+    getData: function getData() {
+      var _this = this;
+
+      axios.get("column").then(function (res) {
+        _this.columns = res.data.data;
+      })["catch"](function (err) {
+        return console.log(err.response.data);
       });
+    },
+    createColumn: function createColumn(name) {
+      var _this2 = this;
+
+      axios.post("column", {
+        'name': name
+      }).then(function (res) {
+        _this2.columns.push(res.data.data);
+      })["catch"](function (err) {
+        return console.log(err.response.data);
+      });
+    },
+    updateColumn: function updateColumn(id, name) {
+      axios.put("column/".concat(id), {
+        'name': name
+      }).then(function (res) {
+        console.log(res.data.data);
+      })["catch"](function (err) {
+        return console.log(err.response.data);
+      });
+    },
+    deleteColumn: function deleteColumn(id) {
+      console.log(id); // axios.delete(`column/${id}`).then(res => {
+      //   // this.getData();
+      // }).catch(err => console.log(err.response.data));
     },
     createCard: function createCard(id, title) {
       console.log(id);
@@ -2180,7 +2202,10 @@ window._ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
  */
 
 window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+window.axios.defaults.baseURL = window.location.origin + '/api';
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+window.axios.defaults.headers.common['Content-Type'] = 'application/json';
+window.axios.defaults.headers.common['Accept'] = 'application/json';
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
  * for events that are broadcast by Laravel. Echo and event broadcasting
@@ -19729,7 +19754,11 @@ var render = function () {
             return _c("column", {
               key: i,
               attrs: { id: column.id, name: column.name, cards: column.cards },
-              on: { "create-card": _vm.createCard },
+              on: {
+                "create-card": _vm.createCard,
+                "update-column-name": _vm.updateColumn,
+                "delete-column": _vm.deleteColumn,
+              },
             })
           }),
           _vm._v(" "),

@@ -617,7 +617,7 @@ var render = function () {
             _c(
               "button",
               {
-                staticClass: "btn btn-primary",
+                staticClass: "btn btn-secondary",
                 on: { click: _vm.createColumn },
               },
               [_vm._v("\n        Add Column\n      ")]

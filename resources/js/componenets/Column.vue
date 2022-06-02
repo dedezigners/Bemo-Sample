@@ -9,7 +9,9 @@
           @keypress.enter="updateName"
           @click="canEdit = false"
         />
-        <span class="material-symbols-outlined icon">close</span>
+        <button
+        class="btn btn-icon"
+        @click="$emit('delete-column', id)"><span class="material-symbols-outlined icon">close</span></button>
       </div>
 
       <card
@@ -55,7 +57,7 @@ export default {
     },
     cards: {
       type: Array,
-      default: []
+      default: () => []
     }
   },
   components: {
@@ -73,7 +75,7 @@ export default {
   methods: {
     updateName() {
       if (this.updatedName) {
-        this.$emit("update-column-name", this.updatedName);
+        this.$emit("update-column-name", this.id, this.updatedName);
       } else {
         this.updatedName = this.name;
       }

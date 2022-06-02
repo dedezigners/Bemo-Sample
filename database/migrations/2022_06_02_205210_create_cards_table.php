@@ -15,12 +15,13 @@ class CreateCardsTable extends Migration
     {
         Schema::create('cards', function (Blueprint $table) {
             $table->id();
-            
+
             $table->string('title');
             $table->text('desc')->nullable();
             $table->integer('position');
             
             $table->foreignId('column_id')->constrained();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

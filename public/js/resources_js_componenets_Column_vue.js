@@ -54,6 +54,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "Column",
   props: {
@@ -67,7 +69,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     cards: {
       type: Array,
-      "default": []
+      "default": function _default() {
+        return [];
+      }
     }
   },
   components: {
@@ -89,7 +93,7 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     updateName: function updateName() {
       if (this.updatedName) {
-        this.$emit("update-column-name", this.updatedName);
+        this.$emit("update-column-name", this.id, this.updatedName);
       } else {
         this.updatedName = this.name;
       }
@@ -230,9 +234,22 @@ var render = function () {
             },
           }),
           _vm._v(" "),
-          _c("span", { staticClass: "material-symbols-outlined icon" }, [
-            _vm._v("close"),
-          ]),
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-icon",
+              on: {
+                click: function ($event) {
+                  return _vm.$emit("delete-column", _vm.id)
+                },
+              },
+            },
+            [
+              _c("span", { staticClass: "material-symbols-outlined icon" }, [
+                _vm._v("close"),
+              ]),
+            ]
+          ),
         ]),
         _vm._v(" "),
         _vm._l(_vm.cards, function (card, i) {

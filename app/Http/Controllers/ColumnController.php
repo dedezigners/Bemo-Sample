@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Column;
 use Illuminate\Http\Request;
+use App\Http\Resources\ColumnResource;
 
 class ColumnController extends Controller
 {
@@ -14,17 +15,7 @@ class ColumnController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return ColumnResource::collection(Column::all());
     }
 
     /**
@@ -35,7 +26,8 @@ class ColumnController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $column = Column::create($request->all());
+        return new ColumnResource($column);
     }
 
     /**
@@ -69,7 +61,10 @@ class ColumnController extends Controller
      */
     public function update(Request $request, Column $column)
     {
-        //
+        $column->name = $request->name;
+        $column->save();
+
+        return new ColumnResource($column);
     }
 
     /**
@@ -80,6 +75,7 @@ class ColumnController extends Controller
      */
     public function destroy(Column $column)
     {
-        //
+        $column->delete();
+        return response()->json('sucessfully deleted', 200);
     }
 }

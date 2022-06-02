@@ -15,7 +15,7 @@
           v-model="columnName"
           @keypress.enter="createColumn"
         />
-        <button class="btn btn-primary" @click="createColumn">
+        <button class="btn btn-secondary" @click="createColumn">
           Add Column
         </button>
         <button class="btn btn-icon" @click="addColumn = false">
