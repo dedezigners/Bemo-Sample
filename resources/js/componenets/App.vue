@@ -58,7 +58,7 @@ export default {
   }),
   mounted() {
     this.getEvents();
-    // this.getData();
+    this.getData();
   },
   methods: {
     getEvents() {

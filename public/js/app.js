@@ -2120,7 +2120,8 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   mounted: function mounted() {
-    this.getEvents(); // this.getData();
+    this.getEvents();
+    this.getData();
   },
   methods: {
     getEvents: function getEvents() {
