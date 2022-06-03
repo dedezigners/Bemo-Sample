@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Card;
-use App\Models\Column;
 use Illuminate\Http\Request;
 use App\Http\Resources\CardResource;
 
@@ -17,7 +16,10 @@ class CardController extends Controller
      */
     public function store(Request $request)
     {
-        // return response()->json($request->all());
+        $column_id = $request->column_id;
+        $cardCount = Card::where('column_id', $column_id)->count();
+        $request['position'] = $cardCount;
+        // return response()->json($request->all(), 400);
         $card = Card::create($request->all());
         return new CardResource($card);
     }
@@ -35,6 +37,11 @@ class CardController extends Controller
         $card->update($request->all());
         return new CardResource($card);
 
+    }
+
+    public function updatePosition(Request $request, Card $card)
+    {
+        return response()->json($request->all());
     }
 
     /**

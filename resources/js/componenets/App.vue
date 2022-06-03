@@ -124,10 +124,10 @@ export default {
           .post(`card`, {
             column_id: id,
             title: title,
-            position:
-              column.cards.length > 0
-                ? column.cards[column.cards.length - 1].id
-                : 0,
+            // position:
+            //   column.cards.length > 0
+            //     ? column.cards[column.cards.length - 1].id
+            //     : 0,
           })
           .then((res) => {
             column.cards.push(res.data.data);

@@ -111,7 +111,17 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     log: function log(evt) {
-      window.console.log(evt);
+      if (evt.moved) {
+        var elem = evt.moved.element;
+        console.log(evt.moved);
+        axios.post("/card/".concat(elem.id, "/position"), {}).then(function (res) {
+          console.log(res.data);
+        })["catch"](function (err) {
+          return console.log(err.response.data);
+        });
+      } else {
+        console.log(evt);
+      }
     }
   }
 });

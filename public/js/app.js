@@ -2194,8 +2194,11 @@ __webpack_require__.r(__webpack_exports__);
       if (column) {
         axios.post("card", {
           column_id: id,
-          title: title,
-          position: column.cards.length > 0 ? column.cards[column.cards.length - 1].id : 0
+          title: title // position:
+          //   column.cards.length > 0
+          //     ? column.cards[column.cards.length - 1].id
+          //     : 0,
+
         }).then(function (res) {
           column.cards.push(res.data.data);
         })["catch"](function (err) {

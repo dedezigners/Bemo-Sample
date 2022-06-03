@@ -91,7 +91,21 @@ export default {
       }
     },
     log: function (evt) {
-      window.console.log(evt);
+      if (evt.moved) {
+        let elem = evt.moved.element;
+
+        console.log(evt.moved);
+        axios
+          .post(`/card/${elem.id}/position`, {
+
+          })
+          .then((res) => {
+            console.log(res.data);
+          })
+          .catch((err) => console.log(err.response.data));
+      } else {
+        console.log(evt);
+      }
     },
   },
 };
