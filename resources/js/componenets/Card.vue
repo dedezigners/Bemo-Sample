@@ -4,7 +4,7 @@
 
     <modal :name="modalName" :clickToClose="false" class="modal">
       <div class="modal-content">
-        <input type="text" v-model="editTitle" />
+        <input type="text" v-model="editTitle" readonly />
         <textarea v-model="editDescription"></textarea>
 
         <button class="btn" @click="save">Save</button>

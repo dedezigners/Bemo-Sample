@@ -613,7 +613,7 @@ var render = function () {
                   expression: "editTitle",
                 },
               ],
-              attrs: { type: "text" },
+              attrs: { type: "text", readonly: "" },
               domProps: { value: _vm.editTitle },
               on: {
                 input: function ($event) {
