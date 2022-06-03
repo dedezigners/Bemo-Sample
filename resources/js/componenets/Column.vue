@@ -92,17 +92,50 @@ export default {
     },
     log: function (evt) {
       if (evt.moved) {
-        let elem = evt.moved.element;
+        let data = evt.moved;
+        let elem = data.element;
 
         console.log(evt.moved);
         axios
           .post(`/card/${elem.id}/position`, {
+            old_index: data.oldIndex,
+            new_index: data.newIndex
+          })
+          .then((res) => {
+            this.cards.forEach(c => {
+              console.log(c.position);
+            })
+            console.log(res.data);
+          })
+          .catch((err) => console.log(err.response.data));
+      } else if (evt.removed) {
+        let data = evt.removed;
+        let elem = data.element;
 
+        axios
+          .post(`/removed/${elem.id}`, {
+            old_index: data.oldIndex
           })
           .then((res) => {
             console.log(res.data);
           })
           .catch((err) => console.log(err.response.data));
+
+      } else if (evt.added) {
+
+        let data = evt.added;
+        let elem = data.element;
+
+        axios
+          .post(`/added/${elem.id}`, {
+            column_id: this.id,
+            new_index: data.newIndex,
+          })
+          .then((res) => {
+            console.log(res.data);
+          })
+          .catch((err) => console.log(err.response.data));
+
       } else {
         console.log(evt);
       }

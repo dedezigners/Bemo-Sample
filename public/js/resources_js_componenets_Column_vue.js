@@ -111,10 +111,41 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     log: function log(evt) {
+      var _this = this;
+
       if (evt.moved) {
-        var elem = evt.moved.element;
+        var data = evt.moved;
+        var elem = data.element;
         console.log(evt.moved);
-        axios.post("/card/".concat(elem.id, "/position"), {}).then(function (res) {
+        axios.post("/card/".concat(elem.id, "/position"), {
+          old_index: data.oldIndex,
+          new_index: data.newIndex
+        }).then(function (res) {
+          _this.cards.forEach(function (c) {
+            console.log(c.position);
+          });
+
+          console.log(res.data);
+        })["catch"](function (err) {
+          return console.log(err.response.data);
+        });
+      } else if (evt.removed) {
+        var _data = evt.removed;
+        var _elem = _data.element;
+        axios.post("/removed/".concat(_elem.id), {
+          old_index: _data.oldIndex
+        }).then(function (res) {
+          console.log(res.data);
+        })["catch"](function (err) {
+          return console.log(err.response.data);
+        });
+      } else if (evt.added) {
+        var _data2 = evt.added;
+        var _elem2 = _data2.element;
+        axios.post("/added/".concat(_elem2.id), {
+          column_id: this.id,
+          new_index: _data2.newIndex
+        }).then(function (res) {
           console.log(res.data);
         })["catch"](function (err) {
           return console.log(err.response.data);

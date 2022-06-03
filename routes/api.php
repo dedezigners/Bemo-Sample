@@ -19,3 +19,5 @@ use App\Http\Controllers\ColumnController;
 Route::apiResource('column', ColumnController::class);
 Route::apiResource('card', CardController::class);
 Route::post('card/{card}/position', [CardController::class, 'updatePosition']);
+Route::post('removed/{card}', [CardController::class, 'remvoedCard']);
+Route::post('added/{card}', [CardController::class, 'addedCard']);

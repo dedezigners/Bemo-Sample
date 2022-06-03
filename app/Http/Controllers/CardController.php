@@ -41,7 +41,87 @@ class CardController extends Controller
 
     public function updatePosition(Request $request, Card $card)
     {
-        return response()->json($request->all());
+        $r = $request->all();
+        
+        $card->position = $r['new_index'];
+        $card->save();
+
+        if ($r['old_index'] > $r['new_index']) {
+            // $data = [];
+            for ($i = $r['new_index']; $i < $r['old_index']; $i++) { 
+                $oCard = Card::where([
+                    ['column_id', '=', $card->column_id],
+                    ['position', '=', $i],
+                    ['id', '!=', $card->id]
+                ])->first();
+
+                if ($oCard) {
+                    $oCard->position = $i + 1;
+                    $oCard->save();
+                }
+            }
+        } elseif ($r['old_index'] < $r['new_index']) {
+            for ($i = $r['old_index']; $i < $r['new_index']; $i++) { 
+                $oCard = Card::where([
+                    ['column_id', '=', $card->column_id],
+                    ['position', '=', $i],
+                    ['id', '!=', $card->id]
+                ])->first();
+
+                if ($oCard) {
+                    $oCard->position = $i + 1;
+                    $oCard->save();
+                }
+            }
+        }
+
+        return response()->json('updated');
+    }
+
+    public function remvoedCard(Request $request, Card $card)
+    {
+        // return response()->json($request->all());
+        $old_index = $request->old_index;
+        return $old_index;
+
+        $count = Card::where('column_id', $card->column_id)->count();
+
+        for ($i = ($old_index + 1); $i < $count; $i++) { 
+            $oCard = Card::where([
+                ['column_id', '=', $card->column_id],
+                ['position', '=', $i],
+                ['id', '!=', $card->id]
+            ])->first();
+
+            if ($oCard) {
+                $oCard->position = $i - 1;
+                $oCard->save();
+            }
+        }
+    }
+
+    public function addedCard(Request $request, Card $card)
+    {
+        $column_id = $request->column_id;
+        $card->column_id = $column_id;
+        $card->position = $request->new_index;
+        $card->save();
+        
+        $count = Card::where('column_id', $column_id)->count();
+        return response()->json($count);
+
+        // for ($i = ($old_index + 1); $i < $count; $i++) { 
+        //     $oCard = Card::where([
+        //         ['column_id', '=', $card->column_id],
+        //         ['position', '=', $i],
+        //         ['id', '!=', $card->id]
+        //     ])->first();
+
+        //     if ($oCard) {
+        //         $oCard->position = $i - 1;
+        //         $oCard->save();
+        //     }
+        // }
     }
 
     /**
