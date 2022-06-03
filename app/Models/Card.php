@@ -10,5 +10,5 @@ class Card extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['column_id', 'title', 'desc', 'position'];
+    protected $fillable = ['column_id', 'title', 'desc'];
 }

@@ -18,7 +18,6 @@ class CreateCardsTable extends Migration
 
             $table->string('title');
             $table->text('desc')->nullable();
-            $table->integer('position');
             
             $table->foreignId('column_id')->constrained();
             $table->softDeletes();
