@@ -25,18 +25,47 @@ export default {
     AddColumn: () => import("./AddColumn.vue"),
   },
   data: () => ({
-    columns: [],
+    columns: [
+      {
+        id: 1,
+        name: "Col-1",
+        cards: [
+          {
+            id: 1,
+            title: "Card 1-1",
+          },
+          {
+            id: 2,
+            title: "Card 1-2",
+          },
+        ],
+      },
+      {
+        id: 1,
+        name: "Col-2",
+        cards: [
+          {
+            id: 1,
+            title: "Card 2-1",
+          },
+          {
+            id: 2,
+            title: "Card 2-2",
+          },
+        ],
+      },
+    ],
   }),
   mounted() {
     this.getEvents();
-    this.getData();
+    // this.getData();
   },
   methods: {
     getEvents() {
-      EventBus.$on('update-card', (cardId, data) => {
+      EventBus.$on("update-card", (cardId, data) => {
         let columnId = null;
-        this.columns.forEach(col => {
-          col.cards.forEach(card => {
+        this.columns.forEach((col) => {
+          col.cards.forEach((card) => {
             if (card.id === cardId) {
               columnId = col.id;
               return true;
@@ -44,9 +73,11 @@ export default {
           });
           if (columnId) return true;
         });
-        
-        let columnIndex = this.columns.findIndex(col => col.id === columnId);
-        let cardIndex = this.columns[columnIndex].cards.findIndex(c => c.id === cardId);
+
+        let columnIndex = this.columns.findIndex((col) => col.id === columnId);
+        let cardIndex = this.columns[columnIndex].cards.findIndex(
+          (c) => c.id === cardId
+        );
         this.columns[columnIndex].cards[cardIndex] = data;
         console.log(this.columns[columnIndex].cards[cardIndex]);
       });

@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import App from './componenets/App';
+import App from './componenets/App.vue';
 import VModal from 'vue-js-modal';
 
 require('./bootstrap');

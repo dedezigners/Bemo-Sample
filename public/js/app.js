@@ -2096,18 +2096,37 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      columns: []
+      columns: [{
+        id: 1,
+        name: "Col-1",
+        cards: [{
+          id: 1,
+          title: "Card 1-1"
+        }, {
+          id: 2,
+          title: "Card 1-2"
+        }]
+      }, {
+        id: 1,
+        name: "Col-2",
+        cards: [{
+          id: 1,
+          title: "Card 2-1"
+        }, {
+          id: 2,
+          title: "Card 2-2"
+        }]
+      }]
     };
   },
   mounted: function mounted() {
-    this.getEvents();
-    this.getData();
+    this.getEvents(); // this.getData();
   },
   methods: {
     getEvents: function getEvents() {
       var _this = this;
 
-      EventBus.$on('update-card', function (cardId, data) {
+      EventBus.$on("update-card", function (cardId, data) {
         var columnId = null;
 
         _this.columns.forEach(function (col) {
@@ -2197,7 +2216,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
-/* harmony import */ var _componenets_App__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./componenets/App */ "./resources/js/componenets/App.vue");
+/* harmony import */ var _componenets_App_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./componenets/App.vue */ "./resources/js/componenets/App.vue");
 /* harmony import */ var vue_js_modal__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-js-modal */ "./node_modules/vue-js-modal/dist/index.js");
 /* harmony import */ var vue_js_modal__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue_js_modal__WEBPACK_IMPORTED_MODULE_1__);
 
@@ -2212,7 +2231,7 @@ new vue__WEBPACK_IMPORTED_MODULE_2__["default"]({
   el: '#app',
   template: '<app/>',
   components: {
-    App: _componenets_App__WEBPACK_IMPORTED_MODULE_0__["default"]
+    App: _componenets_App_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   }
 });
 
